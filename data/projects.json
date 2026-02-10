@@ -1,0 +1,171 @@
+[
+  {
+    "id": "agentforce-service-agent-poc",
+    "title": "Agentforce Service Agent POC",
+    "category": "Salesforce, AI",
+    "status": "Live Demo Available",
+    "techStack": ["Agentforce", "Prompt Builder", "Apex", "LWC", "Platform Events"],
+    "description": "Autonomous AI agent built using Salesforce Agentforce platform demonstrating intelligent case resolution with human handoff capabilities.",
+    "features": [
+      "Prompt Builder configuration with custom Apex Actions",
+      "Einstein Trust Layer integration for secure AI",
+      "LWC interface with Lightning Message Service",
+      "Agent-to-human handoff workflow",
+      "Real-time case analysis and routing"
+    ],
+    "screenshots": [
+      "/images/projects/agentforce-main.png",
+      "/images/projects/agentforce-prompt-builder.png",
+      "/images/projects/agentforce-flow.png"
+    ],
+    "links": {
+      "liveDemo": "#",
+      "github": "https://github.com/aslamkemu/agentforce-service-agent"
+    },
+    "technicalHighlights": {
+      "language": "apex",
+      "code": "public with sharing class OpportunityService {\n    public static void closeWonOpportunities(Set<Id> opportunityIds) {\n        fflib_ISObjectUnitOfWork uow = Application.UnitOfWork.newInstance();\n        \n        // Business logic\n        List<Opportunity> opps = OpportunitySelector.newInstance()\n            .selectById(opportunityIds);\n            \n        for(Opportunity opp : opps) {\n            opp.StageName = 'Closed Won';\n            opp.CloseDate = Date.today();\n        }\n        \n        uow.registerDirty(opps);\n        uow.commitWork();\n    }\n}"
+    }
+  },
+  {
+    "id": "lightning-web-components-library",
+    "title": "Lightning Web Components Library",
+    "category": "Salesforce, Open Source",
+    "status": "Active Development",
+    "techStack": ["LWC", "Lightning Data Service", "SLDS", "Jest"],
+    "description": "Reusable Lightning Web Component library with common UI patterns and best practices for Salesforce developers.",
+    "componentsIncluded": [
+      "Data Table Enhanced - Advanced sorting, filtering, inline editing",
+      "Multi-Select Lookup - Search across objects with chips",
+      "File Upload Widget - Drag-drop with preview",
+      "Chart Components - Chart.js integration",
+      "Toast Notification Manager - Custom toast system",
+      "Modal Dialog Framework - Accessible modals",
+      "Progress Tracker - Multi-step form indicator",
+      "Rich Text Editor - Quill.js integration"
+    ],
+    "links": {
+      "liveDemo": "#",
+      "github": "https://github.com/aslamkemu/lwc-library"
+    },
+    "codeExample": {
+      "language": "javascript",
+      "code": "// datatable-enhanced.js\nimport { LightningElement, wire, api } from 'lwc';\nimport { getRecord } from 'lightning/uiRecordApi';\n\nexport default class DatatableEnhanced extends LightningElement {\n    @api recordId;\n    @api objectApiName;\n    \n    @wire(getRecord, { recordId: '$recordId', fields: '$fields' })\n    wiredRecord({ error, data }) {\n        // Implementation\n    }\n}"
+    }
+  },
+  {
+    "id": "omnistudio-financial-onboarding",
+    "title": "OmniStudio Financial Onboarding",
+    "category": "Salesforce, Enterprise",
+    "status": "Production (Anonymized)",
+    "techStack": ["OmniStudio", "Vlocity", "DataRaptors", "Integration Procedures"],
+    "description": "Complete customer onboarding solution using OmniStudio for banking applications, featuring guided workflows and real-time data validation.",
+    "features": [
+      "Multi-step OmniScript with conditional logic",
+      "FlexCards for customer 360 view",
+      "DataRaptors for data transformation",
+      "Integration Procedures for external API calls",
+      "Document generation and e-signature integration"
+    ],
+    "architectureDiagram": "User → OmniScript → Integration Procedure → DataRaptor\\n                  ↓\\n              External Banking Core API\\n                  ↓\\n              Salesforce Objects (Account, Contact, Financial Account)",
+    "screenshots": [
+      "/images/projects/omnistudio-designer.png",
+      "/images/projects/omnistudio-flexcard.png",
+      "/images/projects/omnistudio-customer-ui.png"
+    ],
+    "businessImpact": [
+      "Reduced onboarding time from 45 to 15 minutes (67% improvement)",
+      "95% customer satisfaction score",
+      "Zero data entry errors"
+    ]
+  },
+  {
+    "id": "wordpress-salesforce-sync-plugin",
+    "title": "WordPress-Salesforce Sync Plugin",
+    "category": "Full-Stack, Integration",
+    "status": "Open Source",
+    "techStack": ["WordPress", "PHP", "JavaScript", "Salesforce REST API", "OAuth 2.0"],
+    "description": "WordPress plugin for bidirectional synchronization between WordPress and Salesforce, enabling automatic lead capture and contact management.",
+    "features": [
+      "Real-time form submission to Salesforce Leads",
+      "WooCommerce order → Salesforce Opportunity sync",
+      "Contact Form 7 integration",
+      "Custom field mapping interface",
+      "OAuth 2.0 authentication",
+      "Webhook support for bidirectional sync",
+      "Error logging and retry mechanism"
+    ],
+    "codeSnippet": {
+      "language": "php",
+      "code": "// Lead creation on form submit\nclass WP_SF_Sync {\n    public function create_lead($form_data) {\n        $access_token = $this->get_access_token();\n        \n        $lead = [\n            'FirstName' => $form_data['first_name'],\n            'LastName' => $form_data['last_name'],\n            'Email' => $form_data['email'],\n            'LeadSource' => 'Website'\n        ];\n        \n        return $this->sf_api->post('/services/data/v59.0/sobjects/Lead', $lead);\n    }\n}"
+    },
+    "links": {
+      "github": "https://github.com/aslamkemu/wp-salesforce-sync"
+    }
+  },
+  {
+    "id": "laravel-crm-salesforce-integration",
+    "title": "Laravel CRM with Salesforce Integration",
+    "category": "Full-Stack, Enterprise",
+    "status": "Portfolio Project",
+    "techStack": ["Laravel 10", "Filament 3", "Vue.js 3", "Vite", "Tailwind CSS", "Salesforce API"],
+    "description": "Modern CRM application built with Laravel and Filament admin panel, featuring two-way sync with Salesforce for distributed teams.",
+    "features": [
+      "Filament admin panel for CRUD operations",
+      "Real-time sync with Salesforce via Platform Events",
+      "Vue.js frontend with SLDS-inspired design",
+      "Lead, Contact, Opportunity management",
+      "Activity tracking and reporting",
+      "Email integration",
+      "Mobile-responsive dashboard"
+    ],
+    "links": {
+      "liveDemo": "https://demo.aslam.in/laravel-crm",
+      "github": "https://github.com/aslamkemu/laravel-salesforce-crm"
+    }
+  },
+  {
+    "id": "apex-enterprise-patterns-reference",
+    "title": "Apex Enterprise Patterns Reference",
+    "category": "Salesforce, Education",
+    "status": "Documentation + Code",
+    "techStack": ["Apex", "Salesforce DX", "Jest"],
+    "description": "Complete implementation of Enterprise Patterns in Apex (Service, Selector, Domain layers) with Unit of Work pattern and comprehensive test coverage.",
+    "links": {
+      "github": "https://github.com/aslamkemu/apex-enterprise-patterns"
+    }
+  },
+  {
+    "id": "ai-prompt-engineering-toolkit",
+    "title": "AI Prompt Engineering Toolkit",
+    "category": "AI, Salesforce",
+    "status": "Active Development",
+    "techStack": ["Einstein GPT", "Prompt Builder", "Apex", "LWC"],
+    "description": "Collection of optimized prompts and templates for Salesforce AI implementations, including Einstein GPT, Agentforce, and Prompt Builder.",
+    "links": {
+      "github": "https://github.com/aslamkemu/ai-prompt-engineering-toolkit"
+    }
+  },
+  {
+    "id": "salesforce-devops-automation-scripts",
+    "title": "Salesforce DevOps Automation Scripts",
+    "category": "DevOps, Automation",
+    "status": "Production Use",
+    "techStack": ["Salesforce CLI (sf)", "Bash", "Python", "GitHub Actions", "Copado"],
+    "description": "Collection of automation scripts for Salesforce development workflow, CI/CD pipelines, and deployment automation.",
+    "links": {
+      "github": "https://github.com/aslamkemu/salesforce-devops-scripts"
+    }
+  },
+  {
+    "id": "platform-event-integration-framework",
+    "title": "Platform Event Integration Framework",
+    "category": "Salesforce, Integration",
+    "status": "Production Framework",
+    "techStack": ["Platform Events", "Apex", "CometD", "Node.js"],
+    "description": "Reusable framework for building event-driven architectures in Salesforce using Platform Events.",
+    "links": {
+      "github": "https://github.com/aslamkemu/platform-event-framework"
+    }
+  }
+]

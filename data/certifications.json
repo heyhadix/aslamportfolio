@@ -1,0 +1,26 @@
+[
+  {
+    "id": "agentforce-specialist",
+    "date": "Nov 2024",
+    "title": "Salesforce Certified Agentforce Specialist",
+    "description": "Demonstrates expertise in designing and implementing AI-powered service solutions using Agentforce.",
+    "icon": "/images/certifications/Agentforce Spec.jpg",
+    "link": "https://trailblazer.me/id/aslamkemu"
+  },
+  {
+    "id": "platform-developer-i",
+    "date": "Mar 2018",
+    "title": "Salesforce Certified Platform Developer I",
+    "description": "Proficiency in developing custom applications on the Salesforce platform using Apex and Visualforce.",
+    "icon": "/images/certifications/Platform Developer.jpg",
+    "link": "https://trailblazer.me/id/aslamkemu"
+  },
+  {
+    "id": "administrator",
+    "date": "Oct 2015",
+    "title": "Salesforce Certified Administrator",
+    "description": "Demonstrates understanding of the breadth of Salesforce features and functions to maintain a Salesforce instance.",
+    "icon": "/images/certifications/Platform Administrator.jpg",
+    "link": "https://trailblazer.me/id/aslamkemu"
+  }
+]
