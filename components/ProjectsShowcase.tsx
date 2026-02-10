@@ -8,6 +8,24 @@ import { useState } from 'react';
 
 import projectsData from '@/data/projects.json';
 
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  screenshots?: string[];
+  category: string[];
+  tags: string[];
+  techStack?: string[];
+  github?: string;
+  demo?: string;
+  links?: {
+    github?: string;
+    liveDemo?: string;
+  };
+  featured: boolean;
+}
+
 const projectCategories = [
   'All',
   'Salesforce',
@@ -18,8 +36,14 @@ const projectCategories = [
 
 const ProjectsShowcase = () => {
   const [filter, setFilter] = useState('All');
+  const projects = projectsData as Project[];
 
-  const filteredProjects = projectsData.filter((project) => {
+  // If no projects, don't render the section
+  if (projects.length === 0) {
+    return null;
+  }
+
+  const filteredProjects = projects.filter((project) => {
     if (filter === 'All') return true;
     return project.category.includes(filter);
   }).slice(0, 6); // Show only 6 featured projects
@@ -98,7 +122,7 @@ const ProjectsShowcase = () => {
                 <div className="absolute top-4 left-4">
                   <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary/90 backdrop-blur-sm text-white text-xs font-semibold">
                     <Sparkles className="w-3 h-3" />
-                    {project.category.split(',')[0].trim()}
+                    {Array.isArray(project.category) ? project.category[0] : project.category}
                   </span>
                 </div>
               </div>
@@ -114,7 +138,7 @@ const ProjectsShowcase = () => {
 
                 {/* Tech stack */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.techStack.slice(0, 3).map((tech) => (
+                  {(project.techStack || project.tags).slice(0, 3).map((tech) => (
                     <span
                       key={tech}
                       className="px-2 py-1 bg-primary/10 border border-primary/20 rounded text-xs font-medium text-primary"
@@ -122,9 +146,9 @@ const ProjectsShowcase = () => {
                       {tech}
                     </span>
                   ))}
-                  {project.techStack.length > 3 && (
+                  {(project.techStack || project.tags).length > 3 && (
                     <span className="px-2 py-1 text-xs font-medium text-copy-secondary">
-                      +{project.techStack.length - 3}
+                      +{(project.techStack || project.tags).length - 3}
                     </span>
                   )}
                 </div>

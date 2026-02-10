@@ -7,7 +7,24 @@ import { ArrowRight, Clock, Calendar } from 'lucide-react';
 
 import blogPosts from '@/data/blog.json';
 
+interface BlogPost {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  readTime: string;
+  thumbnail?: string;
+  link: string;
+}
+
 export default function Blog() {
+  const posts = blogPosts as BlogPost[];
+
+  // If no blog posts, don't render the section
+  if (posts.length === 0) {
+    return null;
+  }
+
   return (
     <section id="blog" className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
@@ -34,7 +51,7 @@ export default function Blog() {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {blogPosts.slice(0, 3).map((post, index) => (
+          {posts.slice(0, 3).map((post, index) => (
             <motion.article
               key={post.id}
               initial={{ opacity: 0, y: 30 }}
