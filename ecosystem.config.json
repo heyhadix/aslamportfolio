@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "aslam-portfolio",
+      "script": "npm",
+      "args": "start",
+      "cwd": "/home/forge/your-domain.com",
+      "instances": 1,
+      "exec_mode": "cluster",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 3000
+      }
+    }
+  ]
+}
