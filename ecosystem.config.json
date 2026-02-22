@@ -1,15 +1,17 @@
 {
   "apps": [
     {
-      "name": "aslam-portfolio",
-      "script": "npm",
-      "args": "start",
-      "cwd": "/home/forge/your-domain.com",
+      "name": "aslam-in",
+      "script": "server.js",
+      "cwd": "/home/forge/aslam.in/.next/standalone",
+      "interpreter": "node",
       "instances": 1,
-      "exec_mode": "cluster",
+      "exec_mode": "fork",
+      "max_memory_restart": "500M",
       "env": {
         "NODE_ENV": "production",
-        "PORT": 3000
+        "PORT": 3000,
+        "NODE_OPTIONS": "--max-old-space-size=384"
       }
     }
   ]

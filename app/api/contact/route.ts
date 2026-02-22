@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,7 +21,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create nodemailer transporter using Gmail SMTP
+    // Lazy-load nodemailer only when contact form is used (saves ~5–10MB baseline memory)
+    const nodemailer = (await import('nodemailer')).default;
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {

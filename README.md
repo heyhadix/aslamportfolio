@@ -165,6 +165,37 @@ To enable the contact form to create Leads in Salesforce:
 2. Add domain in Vercel dashboard
 3. SSL certificate is automatically enabled
 
+### Low-memory deployment (e.g. AWS t3.small, 2GB RAM)
+
+The app is tuned to stay under ~1GB RAM to avoid OOM kills when running next to MySQL, PHP-FPM, and Nginx.
+
+**What’s in place:**
+
+- **Standalone build** – `output: 'standalone'` in `next.config.js` so only a minimal server bundle runs in production.
+- **No production source maps** – Lowers memory use.
+- **Node heap limit** – `NODE_OPTIONS=--max-old-space-size=768` (768MB) so Node doesn’t grow past that.
+- **PM2 memory cap** – `max_memory_restart: "900M"` so PM2 restarts the process before the system runs out of memory.
+- **Lazy-loaded API deps** – Nodemailer is loaded only when the contact form is used.
+
+**Deploy with PM2 (standalone):**
+
+1. In `ecosystem.config.json`, set `cwd` to your server path to the **standalone** folder, e.g. `/home/forge/your-domain.com/.next/standalone` (replace `your-domain.com` with your actual app directory name).
+2. On the server:
+   ```bash
+   npm ci
+   npm run build
+   ```
+   This builds and copies `public/` into `.next/standalone/` via the postbuild script.
+3. Start with PM2:
+   ```bash
+   pm2 start ecosystem.config.json
+   ```
+   The app runs `server.js` from the standalone folder with a 768MB Node heap and PM2 restarts it if it exceeds 900MB.
+
+**If you prefer `next start`** (no standalone): keep your current PM2 config but set `env.NODE_OPTIONS: "--max-old-space-size=768"` and `max_memory_restart: "900M"` so the process is capped and restarted before OOM.
+
+**Optional:** On Linux servers, you can remove the optional dependency `@next/swc-wasm-nodejs` from `package.json` so the runtime uses native SWC only (saves memory). Re-run `npm install` after removing it.
+
 ## 🎯 Customization
 
 ### Update Content
